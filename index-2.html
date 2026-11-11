@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sargam Player – Free, Ad-Free Offline Music Player for Android (APK)</title>
+<meta name="description" content="Sargam Player is a free, ad-free, beautiful offline music and video player for Android. No ads, no pop-ups. Plays the songs already on your phone with a black and white design, song-colour themes, playlists, equalizer, lyrics and a home-screen widget. Download the APK.">
+<meta name="author" content="Sajid">
+<meta name="theme-color" content="#000000">
+<link rel="canonical" href="https://sazidlionsking.github.io/sargam-app/">
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<meta property="og:title" content="Sargam Player – Free Offline Music Player for Android">
+<meta property="og:description" content="A beautiful, free, ad-free offline music player for the songs already on your phone. No ads.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="icon.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Sargam Player","author":{"@type":"Person","name":"Sajid"},"operatingSystem":"Android","applicationCategory":"MultimediaApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free offline music and video player for Android."}
+</script>
+<style>
+:root{--bg:#000;--tx:#f4f4f5;--mu:#9a9aa1;--card:#0f0f11;--line:rgba(255,255,255,.1);--btn:#fff;--btnt:#000;--glow:rgba(255,255,255,.10)}
+@media (prefers-color-scheme:light){:root{--bg:#fff;--tx:#0b0b0c;--mu:#62626a;--card:#f4f4f6;--line:rgba(0,0,0,.1);--btn:#000;--btnt:#fff;--glow:rgba(0,0,0,.07)}}
+:root[data-theme=dark]{--bg:#000;--tx:#f4f4f5;--mu:#9a9aa1;--card:#0f0f11;--line:rgba(255,255,255,.1);--btn:#fff;--btnt:#000;--glow:rgba(255,255,255,.10)}
+:root[data-theme=light]{--bg:#fff;--tx:#0b0b0c;--mu:#62626a;--card:#f4f4f6;--line:rgba(0,0,0,.1);--btn:#000;--btnt:#fff;--glow:rgba(0,0,0,.07)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+.serif{font-family:"Noto Serif",Georgia,"Times New Roman",serif;font-style:italic;font-weight:800}
+nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-size:22px}
+.brand img{width:34px;height:34px;border-radius:9px}
+.nav-r{display:flex;align-items:center;gap:10px}
+.tgl{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--tx);font-size:17px;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 26px;border-radius:999px;background:var(--btn);color:var(--btnt);font-weight:700;font-size:16px;text-decoration:none;border:0;cursor:pointer;transition:transform .15s,opacity .15s}
+.btn:hover{transform:translateY(-2px);opacity:.92}
+.btn.sm{padding:10px 18px;font-size:14px}
+.btn.ghost{background:transparent;color:var(--tx);border:1px solid var(--line)}
+.hero{text-align:center;padding:36px 0 20px;position:relative}
+.hero:before{content:"";position:absolute;left:50%;top:-40px;width:560px;height:560px;max-width:100%;transform:translateX(-50%);background:radial-gradient(circle,var(--glow),transparent 65%);pointer-events:none}
+.logo{position:relative;width:132px;height:132px;border-radius:30px;box-shadow:0 24px 60px rgba(0,0,0,.45),0 0 0 1px var(--line)}
+h1{position:relative;font-size:clamp(34px,6.4vw,64px);line-height:1.06;margin:26px auto 14px;max-width:760px;letter-spacing:-.02em}
+.sub{position:relative;color:var(--mu);font-size:clamp(16px,2.2vw,20px);max-width:600px;margin:0 auto 28px}
+.cta{position:relative;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.meta{position:relative;color:var(--mu);font-size:13px;margin-top:14px}
+.shots{display:flex;gap:18px;justify-content:center;align-items:flex-start;margin:54px auto 10px;padding:0 6px;overflow:hidden}
+.phone{flex:none;width:min(28vw,250px);border-radius:28px;border:1px solid var(--line);overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.4);background:#000}
+.phone img{display:block;width:100%;height:auto}
+.phone:nth-child(2){margin-top:34px}
+section{padding:64px 0}
+h2{font-size:clamp(26px,4vw,40px);margin:0 0 10px;letter-spacing:-.01em}
+.lead{color:var(--mu);max-width:620px;margin:0 0 34px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px}
+.card b{display:block;font-size:17px;margin-bottom:6px}
+.card span{color:var(--mu);font-size:14.5px}
+.ic{font-size:22px;margin-bottom:10px;display:block}
+.steps{counter-reset:s;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.steps .card:before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--btn);color:var(--btnt);font-weight:800;margin-bottom:12px}
+details{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 20px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:700;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";float:right;color:var(--mu)}
+details[open] summary:after{content:"–"}
+details p{color:var(--mu);margin:10px 0 0}
+.dl{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:32px;padding:50px 20px}
+.credit{font-size:20px;color:var(--tx);margin-bottom:10px}
+footer{padding:34px 0 50px;color:var(--mu);font-size:13px;text-align:center;border-top:1px solid var(--line)}
+@media (max-width:640px){.phone{width:28vw;border-radius:14px}.shots{padding:0}.shots{gap:10px}.phone:nth-child(2){margin-top:20px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="brand serif" href="#"><img src="icon.png" alt="Sargam Player logo">Sargam</a>
+    <div class="nav-r">
+      <button class="tgl" id="tg" aria-label="Switch light or dark">◐</button>
+      <a class="btn sm" href="#get">Download</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <img class="logo" src="icon.png" alt="Sargam Player app icon: a vinyl record with a tonearm">
+    <h1>Your music. <span class="serif">Offline.</span> Beautifully.</h1>
+    <p class="sub">Sargam Player is a free, ad-free music and video player for Android. No ads, no pop-ups, ever. It plays the songs already on your phone, and it looks stunning doing it.</p>
+    <div class="cta">
+      <a class="btn" id="dl1" href="https://github.com/sazidlionsking/sargam-app/releases/latest/download/Sargam.apk">Download APK</a>
+      <a class="btn ghost" href="#features">See features</a>
+    </div>
+    <div class="meta" id="ver">Free · Android · No account needed</div>
+    <div class="shots">
+      <div class="phone"><img src="shot1.jpg" alt="Sargam Player library in dark theme" loading="lazy"></div>
+      <div class="phone"><img src="shot2.jpg" alt="Now playing screen that takes its colour from the song" loading="lazy"></div>
+      <div class="phone"><img src="shot3.jpg" alt="Sargam Player in the light theme" loading="lazy"></div>
+    </div>
+  </header>
+
+  <section id="features">
+    <h2>Made for people who <span class="serif">love</span> their library</h2>
+    <p class="lead">Everything you need to enjoy your own music, with nothing you don't.</p>
+    <div class="grid">
+      <div class="card"><span class="ic">🎵</span><b>Plays your own songs</b><span>Finds the music and videos on your phone and keeps them organised by songs, folders, artists and albums.</span></div>
+      <div class="card"><span class="ic">🎨</span><b>Colours from the song</b><span>The player, mini player and widget pick up the colours of the cover art while a song plays. Plain black or white when it doesn't.</span></div>
+      <div class="card"><span class="ic">🌗</span><b>Black, white or automatic</b><span>A clean black and white design that follows your phone's dark or light mode, or stays the way you choose.</span></div>
+      <div class="card"><span class="ic">📋</span><b>Playlists, your way</b><span>Hold a song for a second and drag it up or down to put your playlist in the exact order you like.</span></div>
+      <div class="card"><span class="ic">🧩</span><b>Home-screen widget</b><span>Control playback from your home screen, see the next songs and jump to your favourite playlists in one tap.</span></div>
+      <div class="card"><span class="ic">🎚️</span><b>Equalizer and more</b><span>Equalizer, bass boost, sleep timer, playback speed and lyrics support, plus background playback with notification controls.</span></div>
+      <div class="card"><span class="ic">⚡</span><b>Fast with huge libraries</b><span>Built to stay smooth even with thousands of songs on the phone.</span></div>
+      <div class="card"><span class="ic">🚫</span><b>100% ad-free</b><span>No ads, no pop-ups, no banners and no promotions. Just your music, from the first song to the last.</span></div>
+      <div class="card"><span class="ic">🔒</span><b>Private by design</b><span>Your library stays on your phone. No sign-up, no account.</span></div>
+    </div>
+  </section>
+
+  <section id="get">
+    <div class="dl">
+      <img class="logo" src="icon.png" alt="" style="width:96px;height:96px;border-radius:22px">
+      <h2 style="margin-top:20px">Get <span class="serif">Sargam Player</span></h2>
+      <p class="lead" style="margin:0 auto 24px">Free and ad-free for Android. About 4 MB.</p>
+      <a class="btn" id="dl2" href="https://github.com/sazidlionsking/sargam-app/releases/latest/download/Sargam.apk">Download APK</a>
+      <div class="meta" id="ver2"></div>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2>What is <span class="serif">Sargam Player</span>?</h2>
+    <p class="lead" style="max-width:760px">Sargam Player is a free offline music player for Android. Download the Sargam Player APK and play the songs and videos already stored on your phone, with no internet needed. It has a clean black and white design, playlists, an equalizer with bass boost, sleep timer, playback speed, lyrics support and a home-screen widget. If you are looking for a simple, fast and good-looking music player app for Android that works without internet, Sargam Player is made for you.</p>
+  </section>
+
+  <section>
+    <h2>Install in three steps</h2>
+    <p class="lead">Sargam Player is not on the Play Store yet, so you install it directly.</p>
+    <div class="steps">
+      <div class="card"><b>Download</b><span>Tap Download APK. If your browser warns about the file type, choose to keep it.</span></div>
+      <div class="card"><b>Allow install</b><span>Open the file. If Android asks, allow your browser (or file manager) to install apps.</span></div>
+      <div class="card"><b>Open and enjoy</b><span>Open Sargam Player, allow access to your music and it finds your songs. New versions show up inside the app.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Questions</h2>
+    <p class="lead"></p>
+    <details><summary>What is the Sargam Player APK?</summary><p>The APK is the installation file of Sargam Player, a free offline music player for Android. Download it from this page and install it on your phone.</p></details>
+    <details><summary>Is it free?</summary><p>Yes. Sargam Player is free, and there is no account to create.</p></details>
+    <details><summary>Does it come with songs?</summary><p>No. Sargam Player plays the music and videos that are already on your phone. It does not download or stream songs.</p></details>
+    <details><summary>Why does Android show a "Play Protect" message?</summary><p>Because the app is installed outside the Play Store and is new to Google. Tap "Scan app" or "Install anyway". The app only reads the media you give it access to.</p></details>
+    <details><summary>How do I update?</summary><p>The app tells you when a new version is ready. Tap "Update now", download the new APK and install it over the old one. Your playlists stay.</p></details>
+    <details><summary>Which Android versions work?</summary><p>Sargam Player is built for modern Android phones. If it does not install on yours, please let us know.</p></details>
+  </section>
+</div>
+<footer><div class="wrap"><div class="credit">Created by <b class="serif">Sajid</b></div><span class="serif">Sargam Player</span> · Made with care for people who love their music. Sargam Player plays media stored on your device and does not include any songs.<br>© 2026 Sajid. All rights reserved.</div></footer>
+<script>
+(function(){
+  var r=document.documentElement,k="sargam-site-theme";
+  try{var s=localStorage.getItem(k);if(s)r.setAttribute("data-theme",s)}catch(e){}
+  document.getElementById("tg").onclick=function(){
+    var light=r.getAttribute("data-theme")?r.getAttribute("data-theme")==="light":matchMedia("(prefers-color-scheme:light)").matches;
+    var n=light?"dark":"light";r.setAttribute("data-theme",n);try{localStorage.setItem(k,n)}catch(e){}
+  };
+  fetch("https://api.github.com/repos/sazidlionsking/sargam-app/releases/latest").then(function(x){return x.ok?x.json():null}).then(function(j){
+    if(!j||!j.tag_name)return;
+    var d=j.published_at?new Date(j.published_at).toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"}):"";
+    var t="Latest version "+String(j.tag_name).replace(/\D/g,"")+(d?" · updated "+d:"");
+    document.getElementById("ver").textContent="Free · Android · "+t;
+    document.getElementById("ver2").textContent=t;
+  }).catch(function(){});
+})();
+</script>
+</body>
+</html>

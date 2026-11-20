@@ -30,7 +30,7 @@ a{color:inherit}
 .serif{font-family:"Noto Serif",Georgia,"Times New Roman",serif;font-style:italic;font-weight:800}
 .grad{background:linear-gradient(100deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
 /* nav */
-nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 70%,transparent);border-bottom:1px solid transparent}
+nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 94%,transparent);border-bottom:1px solid transparent}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:12px;padding-bottom:12px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-size:22px}
 .brand img{width:34px;height:34px;border-radius:9px}
@@ -59,8 +59,8 @@ h1{font-size:clamp(38px,6.6vw,72px);line-height:1.02;margin:20px 0 16px;letter-s
 .deck{position:relative;min-height:420px;display:grid;place-items:center}
 .deck .hp{pointer-events:none}
 .vinyl{width:min(100%,430px);height:auto;position:relative;z-index:1}
-.deck:before{content:"";position:absolute;width:min(92%,400px);aspect-ratio:1;border-radius:50%;box-shadow:0 30px 60px -10px var(--shadow);transition:box-shadow .6s;pointer-events:none}
-.deck.on:before{box-shadow:0 30px 80px -5px var(--a)}
+.deck:before{content:"";position:absolute;width:min(92%,400px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,transparent 62%,var(--shadow) 100%);opacity:.8;transform:translateY(22px);pointer-events:none}
+.deck.on:before{background:radial-gradient(circle,transparent 58%,var(--a) 100%);opacity:.5}
 .spin{transform-origin:200px 200px;animation:sp 9s linear infinite;will-change:transform}
 @keyframes sp{to{transform:rotate(360deg)}}
 .arm{transform-origin:352px 58px;animation:sway 6s ease-in-out infinite}
@@ -178,7 +178,11 @@ footer{padding:40px 0 56px;color:var(--mu);font-size:13.5px;text-align:center;bo
 .key small{color:var(--mu);font-size:12px;letter-spacing:.06em}
 .key:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--ka),var(--kb));opacity:0;transition:opacity .5s}
 .key.hit:before{opacity:.95;transition:opacity .04s}
-.key.hit{transform:translateY(5px);box-shadow:0 0 40px -6px var(--ka)}
+.key.hit{transform:translateY(5px)}
+a.cr{text-decoration:none}a.cr span{color:var(--mu);font-size:13.5px;border-bottom:1px dotted var(--mu)}a.cr:hover span{color:var(--a)}
+.gsi{margin-top:16px;text-align:center}.gsi #gbtn{display:flex;justify-content:center;margin-top:10px;min-height:44px}.who{display:block!important;font-weight:700;margin:4px 0 8px}.who b,.who span{display:inline!important}.who small{color:var(--mu);font-weight:500}.vf{color:#1a9d5a;font-size:12px;margin-left:6px;font-weight:700}
+#tint{position:fixed;inset:0;z-index:-1;opacity:0;transition:opacity .7s;pointer-events:none}#tint.on{opacity:.3;transition:opacity .05s}
+.social{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 .key.hit b,.key.hit small{color:#fff}
 .key>*{position:relative}
 .tools{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
@@ -218,6 +222,7 @@ footer{padding:40px 0 56px;color:var(--mu);font-size:13.5px;text-align:center;bo
 </head>
 <body>
 <div class="prog" id="prog"></div>
+<div id="tint" aria-hidden="true"></div>
 <div id="fx" aria-hidden="true"></div>
 <div id="spot" aria-hidden="true"></div>
 <div id="thx" role="dialog" aria-label="Rate Sargam"><button class="x" type="button" id="thxx" aria-label="Close">×</button><b>Download started 🎉</b><p>Once you try it, tell us how it feels. Tap a star.</p><div class="stp" id="thxs"></div></div>
@@ -331,7 +336,9 @@ footer{padding:40px 0 56px;color:var(--mu);font-size:13.5px;text-align:center;bo
     <div class="card sum" id="sum">
       <div class="avg" id="avg">–</div><div class="st" id="avgst">☆☆☆☆☆</div><small id="cnt">No reviews yet</small>
       <div class="dist" id="dist"></div>
+      <div class="gsi" id="gsi" hidden><div class="note">To keep reviews genuine, sign in with Google to write one. We show only your Google name, never your email.</div><div id="gbtn"></div></div>
       <form class="rf" id="rf" hidden>
+        <div class="who" id="who" hidden></div>
         <div class="note" style="margin-bottom:4px">Your rating</div>
         <div class="pick" id="pick" role="radiogroup" aria-label="Your rating"></div>
         <input id="rn" maxlength="30" placeholder="Your name (optional)" autocomplete="nickname">
@@ -386,8 +393,8 @@ footer{padding:40px 0 56px;color:var(--mu);font-size:13.5px;text-align:center;bo
 </main>
 
 <footer><div class="wrap">
-  <div class="credit">Created by <b class="serif">Sajid</b></div>
-  <a class="gh" href="https://github.com/sazidlionsking/sargam-app" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Sargam on GitHub</a>
+  <div class="credit">Created by <a class="cr" href="https://www.instagram.com/mr_h4_99" target="_blank" rel="noopener"><b class="serif">Sajid</b> <span>@mr_h4_99 on Instagram</span></a></div>
+  <div class="social"><a class="gh" href="https://github.com/sazidlionsking/sargam-app" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Sargam on GitHub</a><a class="gh" href="https://www.instagram.com/sargam_player" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.2-3.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg>Official Instagram</a></div>
   <div><span class="serif">Sargam Player</span> · Made with care for people who love their music. Sargam Player plays media stored on your device and does not include any songs.</div>
   <div style="margin-top:6px">© 2026 Sajid. All rights reserved.</div>
 </div></footer>
@@ -427,7 +434,7 @@ footer{padding:40px 0 56px;color:var(--mu);font-size:13.5px;text-align:center;bo
   document.getElementById("mp").onclick=function(){song(si-1)};
   mpp.onclick=function(){setPl(!pp)};
   var demoVis=true;
-  setInterval(function(){if(!pp||document.hidden)return;pr+=100/110;if(pr>=100)song(si+1);mb.style.width=pr+"%"},100);
+  setInterval(function(){if(!pp||document.hidden)return;pr+=100/55;if(pr>=100)song(si+1);mb.style.width=pr+"%"},100);
   mt2.textContent=SONGS[0][0];ms.textContent=SONGS[0][1];cg.textContent=SONGS[0][2];
   /* mood themes */
   var MOODS=[["✨ Default","",[["#ff5d73","#7b5cff"],0]],["🌧 Rain","rain",[["#22d3ee","#2563eb"],1]],["🌙 Night","night",[["#a29bfe","#312e81"],5]]];
@@ -481,7 +488,8 @@ footer{padding:40px 0 56px;color:var(--mu);font-size:13.5px;text-align:center;bo
     o1.connect(lp);o2.connect(g2);g2.connect(lp);lp.connect(g);g.connect(master);
     o1.start(t);o2.start(t);o1.stop(t+dur+.05);o2.stop(t+dur+.05);
   }
-  function setKP(i){r.style.setProperty("--a",KP[i][0]);r.style.setProperty("--b",KP[i][1]);[].forEach.call(sw.children,function(b){b.classList.remove("on")})}
+  var tint=document.getElementById("tint"),tt=0;
+  function setKP(i){tint.style.background="radial-gradient(70% 55% at 50% 30%,"+KP[i][0]+","+KP[i][1]+" 60%,transparent 100%)";tint.classList.add("on");clearTimeout(tt);tt=setTimeout(function(){tint.classList.remove("on")},500)}
   function hit(i,quiet){
     if(!quiet)tone(i);setKP(i);var k=kb[i];if(!k)return;k.classList.add("hit");clearTimeout(k._t);k._t=setTimeout(function(){k.classList.remove("hit")},260);
   }
@@ -522,6 +530,7 @@ footer{padding:40px 0 56px;color:var(--mu);font-size:13.5px;text-align:center;bo
   /* ---------- reviews ----------
      REVIEWS_URL = address of the Google Apps Script web app (set up in the next step). Empty = "opening soon".
      Add ?demo=1 to the page address to try the form here (reviews are then kept only in this browser). */
+  var GOOGLE_CLIENT_ID="914052153718-crb4rrnl75qu9lsaqlsfdpdpim9i90ee.apps.googleusercontent.com";
   var REVIEWS_URL="https://script.google.com/macros/s/AKfycbzl0Gx3E-cpeRUJojiFHZzivLjCZXLSAnJCIR2wYdScor9t5KWLMDrB4Gl3PgRA2d0/exec";
   var demo=/[?&]demo=1/.test(location.search);
   var list=document.getElementById("list"),rf=document.getElementById("rf"),soon=document.getElementById("soon"),pick=document.getElementById("pick"),rm=document.getElementById("rm");
@@ -535,14 +544,25 @@ footer{padding:40px 0 56px;color:var(--mu);font-size:13.5px;text-align:center;bo
     document.getElementById("ratetile").textContent=n?(sum/n).toFixed(1)+" ★":"New";document.getElementById("rtn").textContent=n?"from "+n+(n===1?" real review":" real reviews"):"be the first to rate";
     document.getElementById("cnt").textContent=n?n+(n===1?" review":" reviews"):"No reviews yet";
     document.getElementById("dist").innerHTML=n?[5,4,3,2,1].map(function(s){return '<div><span>'+s+'★</span><i><u style="width:'+Math.round(c[s]/n*100)+'%"></u></i><span>'+c[s]+'</span></div>'}).join(""):"";
-    list.innerHTML=n?data.slice().reverse().map(function(x){return '<div class="rev"><div class="top"><span class="nm">'+esc(x.name||"Anonymous")+'</span><span class="st">'+stars(x.stars)+'</span></div>'+(x.text?'<p>'+esc(x.text)+'</p>':'')+'<div class="dt" style="margin-top:8px">'+esc(x.date||"")+'</div></div>'}).join(""):'<div class="empty"><b>No reviews yet</b>Be the first to share what you think of Sargam Player.</div>';
+    list.innerHTML=n?data.slice().reverse().map(function(x){return '<div class="rev"><div class="top"><span class="nm">'+esc(x.name||"Anonymous")+(x.v?'<span class="vf">✓ Google</span>':'')+'</span><span class="st">'+stars(x.stars)+'</span></div>'+(x.text?'<p>'+esc(x.text)+'</p>':'')+'<div class="dt" style="margin-top:8px">'+esc(x.date||"")+'</div></div>'}).join(""):'<div class="empty"><b>No reviews yet</b>Be the first to share what you think of Sargam Player.</div>';
   }
   function load(){
     if(demo){try{data=JSON.parse(localStorage.getItem("sg-demo-rev")||"[]")}catch(e){data=[]}render();return}
     if(!REVIEWS_URL){render();return}
-    fetch(REVIEWS_URL+"?action=list").then(function(x){return x.json()}).then(function(j){data=(j&&j.reviews||[]).map(function(x){return {name:String(x.name||"").slice(0,30),stars:Math.max(1,Math.min(5,+x.stars||0)),text:String(x.text||"").slice(0,400),date:String(x.date||"")}});render()}).catch(function(){render()});
+    fetch(REVIEWS_URL+"?action=list").then(function(x){return x.json()}).then(function(j){data=(j&&j.reviews||[]).map(function(x){return {name:String(x.name||"").slice(0,30),stars:Math.max(1,Math.min(5,+x.stars||0)),text:String(x.text||"").slice(0,400),date:String(x.date||""),v:!!x.verified}});render()}).catch(function(){render()});
   }
-  if(demo||REVIEWS_URL){rf.hidden=false;soon.hidden=true}
+  var verified=!!GOOGLE_CLIENT_ID&&!demo&&!!REVIEWS_URL,cred="",gname="";
+  if(demo||REVIEWS_URL){soon.hidden=true;if(verified){document.getElementById("gsi").hidden=false}else rf.hidden=false}
+  if(verified){
+    document.getElementById("rn").style.display="none";
+    var gs=document.createElement("script");gs.src="https://accounts.google.com/gsi/client";gs.async=true;
+    gs.onload=function(){try{google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:function(resp){
+      cred=resp.credential;try{var pl=JSON.parse(decodeURIComponent(escape(atob(cred.split(".")[1].replace(/-/g,"+").replace(/_/g,"/")))));gname=pl.name||""}catch(e){}
+      var w=document.getElementById("who");w.hidden=false;w.innerHTML="Reviewing as <b></b> <span class=\"vf\">✓ Google</span>";w.querySelector("b").textContent=gname||"your Google account";
+      document.getElementById("gsi").hidden=true;rf.hidden=false}});
+      google.accounts.id.renderButton(document.getElementById("gbtn"),{theme:"outline",size:"large",shape:"pill",text:"signin_with"})}catch(e){}};
+    document.head.appendChild(gs);
+  }
   for(var i=1;i<=5;i++)(function(i){var b=document.createElement("button");b.type="button";b.textContent="★";b.setAttribute("role","radio");b.setAttribute("aria-label",i+" star"+(i>1?"s":""));b.onclick=function(){cur=i;[].forEach.call(pick.children,function(x,j){x.classList.toggle("on",j<i)})};pick.appendChild(b)})(i);
   /* after-download rating sheet */
   var thx=document.getElementById("thx"),ts=document.getElementById("thxs"),shown=false;
@@ -557,8 +577,11 @@ footer{padding:40px 0 56px;color:var(--mu);font-size:13.5px;text-align:center;bo
     if(!cur){rm.textContent="Please tap the stars first.";return}
     var last=0;try{last=+localStorage.getItem("sg-rev-at")||0}catch(x){}
     if(!demo&&Date.now()-last<12*3600*1000){rm.textContent="You already sent a review today. Thank you!";return}
-    var item={name:document.getElementById("rn").value.trim().slice(0,30),stars:cur,text:document.getElementById("rt").value.trim().slice(0,400),date:new Date().toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"})};
-    function done(){try{localStorage.setItem("sg-rev-at",String(Date.now()))}catch(x){}rm.textContent="Thank you! Your review is added.";data.push(item);render();rf.reset();cur=0;[].forEach.call(pick.children,function(x){x.classList.remove("on")})}
+    var txt=document.getElementById("rt").value.trim().slice(0,400),dt=new Date().toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"});
+    var item=verified?{credential:cred,stars:cur,text:txt}:{name:document.getElementById("rn").value.trim().slice(0,30),stars:cur,text:txt,date:dt};
+    function done(){try{localStorage.setItem("sg-rev-at",String(Date.now()))}catch(x){}
+      if(verified){rm.textContent="Thank you! Your review will appear in a moment.";rf.reset();cur=0;[].forEach.call(pick.children,function(x){x.classList.remove("on")});setTimeout(load,2500);return}
+      rm.textContent="Thank you! Your review is added.";data.push(item);render();rf.reset();cur=0;[].forEach.call(pick.children,function(x){x.classList.remove("on")})}
     if(demo){try{localStorage.setItem("sg-demo-rev",JSON.stringify(data.concat([item])))}catch(x){}done();return}
     rm.textContent="Sending...";
     fetch(REVIEWS_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(item)}).then(done).catch(function(){rm.textContent="Could not send. Please try again."});

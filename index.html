@@ -402,6 +402,9 @@ a.cr{text-decoration:none}a.cr span{color:var(--mu);font-size:13.5px;border-bott
 </div></footer>
 
 <script>
+function pre(){try{var n=localStorage.getItem("sg-name");var e=document.getElementById("rn");if(n&&e)e.value=n}catch(x){}}
+document.addEventListener("DOMContentLoaded",pre);
+
 (function(){
   var r=document.documentElement,k="sargam-site-theme";
   try{var s=localStorage.getItem(k);if(s)r.setAttribute("data-theme",s)}catch(e){}
@@ -580,10 +583,11 @@ a.cr{text-decoration:none}a.cr span{color:var(--mu);font-size:13.5px;border-bott
     var last=0;try{last=+localStorage.getItem("sg-rev-at")||0}catch(x){}
     if(!demo&&Date.now()-last<12*3600*1000){rm.textContent="You already sent a review today. Thank you!";return}
     var txt=document.getElementById("rt").value.trim().slice(0,400),dt=new Date().toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"});
+    var _n=document.getElementById("rn").value.trim().slice(0,30);try{if(_n)localStorage.setItem("sg-name",_n)}catch(e){}
     var item=verified?{credential:cred,stars:cur,text:txt}:{name:document.getElementById("rn").value.trim().slice(0,30),stars:cur,text:txt,date:dt};
     function done(){try{localStorage.setItem("sg-rev-at",String(Date.now()))}catch(x){}
-      if(verified){rm.textContent="Thank you! Your review will appear in a moment.";rf.reset();cur=0;[].forEach.call(pick.children,function(x){x.classList.remove("on")});setTimeout(load,2500);return}
-      rm.textContent="Thank you! Your review is added.";data.push(item);render();rf.reset();cur=0;[].forEach.call(pick.children,function(x){x.classList.remove("on")})}
+      if(verified){rm.textContent="Thank you! Your review will appear in a moment.";rf.reset();pre();cur=0;[].forEach.call(pick.children,function(x){x.classList.remove("on")});setTimeout(load,2500);return}
+      rm.textContent="Thank you! Your review is added.";data.push(item);render();rf.reset();pre();cur=0;[].forEach.call(pick.children,function(x){x.classList.remove("on")})}
     if(demo){try{localStorage.setItem("sg-demo-rev",JSON.stringify(data.concat([item])))}catch(x){}done();return}
     rm.textContent="Sending...";
     fetch(REVIEWS_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(item)}).then(done).catch(function(){rm.textContent="Could not send. Please try again."});
